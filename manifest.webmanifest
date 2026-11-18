@@ -1,0 +1,26 @@
+{
+  "id": "./",
+  "name": "Noesis \u00b7 Meditation Atlas",
+  "short_name": "Noesis",
+  "description": "Explore the meditation map, practice Dot Meditation and track your journey.",
+  "lang": "en",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#10111b",
+  "theme_color": "#10111b",
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

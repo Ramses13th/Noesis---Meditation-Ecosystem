@@ -1,0 +1,746 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10111b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="Explore meditation practices, track your progress and keep a journal.">
+<title>Noesis · Meditation Atlas</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon-192.png">
+<link rel="apple-touch-icon" href="./icon-192.png">
+<style>
+:root{color-scheme:dark;--bg:#10111b;--panel:#181a29;--deep:#121421;--line:#33364e;--muted:#a9aec5;--text:#f2f4ff;--mint:#a7ffcf;--purple:#c1adff;--shadow:#090a11;--mono:ui-monospace,"Cascadia Mono",Consolas,monospace;font-family:system-ui,sans-serif;background:var(--bg);color:var(--text)}
+*{box-sizing:border-box}body{margin:0;min-height:100dvh;background:radial-gradient(ellipse at 65% 0%,#201b36,transparent 54%),var(--bg)}button,input,select,textarea{font:inherit}button,a,input,select,textarea{touch-action:manipulation}button,select{cursor:pointer}button{color:inherit}button:focus-visible,a:focus-visible,textarea:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--mint);outline-offset:3px}a{color:var(--purple);text-underline-offset:4px}p{margin:0;color:var(--muted);line-height:1.5}h1,h2,h3{margin:0}h1,h2,.mono,.tag,.nav,.level,.action,.time,.metrics strong{font-family:var(--mono)}h1{font-size:clamp(2rem,5vw,3.5rem);letter-spacing:-.075em;line-height:1.06}h2{font-size:1.08rem;letter-spacing:-.04em}h3{font-size:1.08rem}[hidden]{display:none!important}
+header{border-bottom:1px solid var(--line);background:#10111bf5}.top{max-width:1160px;margin:auto;min-height:70px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}.brand{font:800 .94rem var(--mono);color:var(--text);text-decoration:none;display:flex;align-items:center;gap:11px;white-space:nowrap}.brand img{width:33px;height:33px;image-rendering:pixelated}.brand span{color:var(--mint)}.nav{display:flex;gap:6px}.nav button,.quiet{background:transparent;border:1px solid transparent;color:var(--muted);min-height:44px;padding:8px 12px}.nav button[aria-current="page"]{color:var(--mint);border-color:#40554f;background:#202f31}.quiet:hover,.nav button:hover{color:var(--text);border-color:var(--line)}.top .quiet{font:700 .77rem var(--mono);border-color:var(--line);white-space:nowrap}
+.shell{max-width:1160px;margin:auto;padding:30px 24px 28px}.intro{display:flex;justify-content:space-between;align-items:flex-end;margin:0 0 24px;gap:15px}.eyebrow,.tag{color:var(--mint);font:700 .72rem var(--mono);letter-spacing:.08em;text-transform:uppercase}.eyebrow{display:block;margin-bottom:9px}.intro p{margin-top:9px}.intro aside{color:var(--purple);font:700 .77rem var(--mono);white-space:nowrap}
+.grid{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(315px,1fr);gap:18px;align-items:start}.card{border:1px solid var(--line);background:var(--panel);box-shadow:4px 4px 0 var(--shadow);min-width:0}.pad{padding:17px}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.stack{display:grid;gap:17px;min-width:0}.tiny{font-size:.79rem}.muted{color:var(--muted)}.pane-head{margin-bottom:12px}
+.practice{padding:15px}.practice-top{min-height:33px;margin-bottom:10px}.practice-top strong{font:.82rem var(--mono);color:var(--purple)}
+.field{position:relative;isolation:isolate;display:grid;place-items:center;min-height:258px;overflow:hidden;background:radial-gradient(ellipse at center,#211f3b,#131626 70%);border:1px solid #464260;color:var(--mint)}
+.field::before{content:"";position:absolute;inset:0;z-index:-1;background-image:radial-gradient(#8387b16b 1px,transparent 1px);background-size:17px 17px;mask-image:radial-gradient(ellipse,transparent 27%,#000 95%);opacity:.55}.field::after{content:"";position:absolute;inset:12px;pointer-events:none;background:linear-gradient(currentColor,currentColor) left top/12px 1px,linear-gradient(currentColor,currentColor) left top/1px 12px,linear-gradient(currentColor,currentColor) right top/12px 1px,linear-gradient(currentColor,currentColor) right top/1px 12px,linear-gradient(currentColor,currentColor) left bottom/12px 1px,linear-gradient(currentColor,currentColor) left bottom/1px 12px,linear-gradient(currentColor,currentColor) right bottom/12px 1px,linear-gradient(currentColor,currentColor) right bottom/1px 12px;background-repeat:no-repeat;opacity:.55}
+.orbit{position:absolute;width:162px;aspect-ratio:1;border:1px solid #8e79cb45;transform:rotate(45deg);animation:ambient 5s ease-in-out infinite alternate;pointer-events:none}.orbit::after{content:"";position:absolute;inset:16px;border:1px dashed #a491f53a}.target{position:relative;display:grid;place-items:center;width:110px;height:110px}.target::after{content:"";width:10px;height:10px;border-radius:50%;background:currentColor}.target i{position:absolute;inset:0}.target[data-shape="circle"] i{border:2px solid;border-radius:50%}.target[data-shape="square"] i{border:2px solid}.target[data-shape="triangle"] i{inset:-7px;clip-path:polygon(50% 0,100% 91%,0 91%,50% 0,50% 4%,3% 89%,97% 89%,50% 4%);background:currentColor;transform:translateY(-12px)}.target[data-shape="image"]{width:min(65%,270px);height:auto}.target[data-shape="image"]::after,.target[data-shape="breath"]::after,.target[data-shape="observe"]::after{display:none}.target img{max-width:100%;max-height:46vh;object-fit:contain}.target .glyph{font:4rem var(--mono);font-style:normal}
+.field.paper{background:#f4f2ea;color:#171722;border-color:#bdb9ad}.field.paper::before,.field.paper .orbit,.field.paper::after{display:none}.active .field{background:#151724}.active .field.paper{background:#f4f2ea}.active .field::before,.active .field::after,.active .orbit{display:none}.active .target[data-shape="breath"] .glyph,.active .target[data-shape="observe"] .glyph{visibility:hidden}
+.controls{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;margin-top:13px}.clock{min-width:0}.time{font-weight:800;font-size:clamp(1.65rem,6vw,2.5rem);font-variant-numeric:tabular-nums;letter-spacing:-.07em;line-height:1}.track{height:5px;background:#303149;margin-top:9px;overflow:hidden}.track i{display:block;width:0;height:100%;background:var(--mint);transition:width .25s linear}.actions{display:flex;gap:8px}.action{border:1px solid #526272;background:#24273b;font-weight:800;padding:10px 13px;min-height:45px;box-shadow:2px 2px 0 var(--shadow)}.action.primary{background:var(--mint);color:#12261f;border-color:var(--mint)}.action:hover{filter:brightness(1.12)}.action:active{transform:translate(2px,2px);box-shadow:none}.action:disabled{opacity:.48;cursor:default}.options{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:11px;color:var(--muted);font-size:.78rem}.options label{display:flex;min-height:38px;align-items:center;gap:5px}input[type="checkbox"]{accent-color:var(--mint);width:16px;height:16px}.instruction{border-top:1px solid var(--line);padding-top:11px}.instruction a{white-space:nowrap}.upload{display:block;margin:10px 0}.upload input{max-width:100%;margin-top:5px}
+.levels{display:grid;gap:6px}.level{display:grid;grid-template-columns:25px minmax(0,1fr) auto;align-items:center;gap:9px;text-align:left;border:1px solid #383951;background:var(--deep);min-height:44px;padding:6px 9px;font-weight:700;font-size:.84rem}.level[aria-pressed="true"]{background:#213333;border-color:#6d9c8c;color:var(--mint)}.level .sym{text-align:center;color:var(--purple);font-size:1.11rem}.level small{color:var(--muted);white-space:nowrap}.level:disabled{cursor:default}.level:hover:not(:disabled){border-color:var(--mint)}.master{display:flex;align-items:center;gap:6px;margin-top:10px;min-height:38px}.master input{flex:none}.master small{line-height:1.4}.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;text-align:center}.metrics strong{display:block;color:var(--mint);font-size:1.28rem;margin-bottom:3px}.metrics span{font-size:.72rem;color:var(--muted)}.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px;margin:13px 0 10px;text-align:center;font:.69rem var(--mono);color:var(--muted)}.week i{display:grid;place-items:center;height:23px;font-style:normal;background:var(--deep);border:1px solid var(--line);margin-bottom:4px}.week .done i{background:#28493e;border-color:#659780;color:var(--mint)}.week .today i{outline:1px solid var(--purple);outline-offset:1px}
+.hub{display:grid;gap:13px;margin-top:19px}.tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.tool{padding:12px;text-align:left;background:var(--deep);border:1px solid var(--line);min-height:83px}.tool[aria-pressed="true"]{border-color:#6d9c8c;color:var(--mint)}.tool strong{display:block;font:700 .88rem var(--mono);margin-bottom:5px}.tool span{color:var(--muted);font-size:.77rem}.tool:hover{border-color:var(--mint)}
+footer{margin-top:25px;color:var(--muted);font-size:.76rem}.journal-wrap{max-width:790px;margin:auto}.entries{display:grid;gap:10px}.entry{padding:13px;background:var(--deep);border:1px solid var(--line)}.entry p{white-space:pre-wrap;overflow-wrap:anywhere;margin-top:6px}.entry button{min-height:42px}textarea,select{border:1px solid #575c77;background:#111321;color:var(--text);padding:8px;min-height:42px}textarea{width:100%;min-height:110px;resize:vertical}.backup{flex-wrap:wrap;justify-content:flex-start;margin-top:14px}
+dialog{color:var(--text);background:var(--panel);border:1px solid var(--purple);box-shadow:6px 6px 0 var(--shadow);padding:19px;width:min(500px,calc(100% - 28px));max-height:90dvh}dialog::backdrop{background:#080912cc}dialog p,dialog label,dialog textarea{margin:10px 0}dialog label{display:block}.dialog-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}.notice{position:fixed;z-index:5;inset:auto 12px max(12px,env(safe-area-inset-bottom));margin:auto;max-width:430px;background:#283a36;color:#e4fff0;border:1px solid #80b6a0;padding:11px 14px;font-size:.85rem;overflow-wrap:anywhere}.screen{animation:enter .22s ease-out}
+body.active{background:var(--bg)}.active header,.active .intro,.active .sidebar,.active .hub,.active footer,.active .practice-top,.active .upload,.active .options,.active .instruction{display:none}.active .shell{max-width:740px;padding:max(10px,env(safe-area-inset-top)) 10px max(10px,env(safe-area-inset-bottom))}.active .grid{display:block}.active .practice{display:flex;flex-direction:column;height:calc(100dvh - max(10px,env(safe-area-inset-top)) - max(10px,env(safe-area-inset-bottom)));padding:10px}.active .field{min-height:0;flex:1}.active .controls{align-items:center}
+@keyframes ambient{from{opacity:.4}to{opacity:1}}@keyframes enter{from{opacity:.65;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.top{padding:0 13px;flex-wrap:wrap;min-height:0;padding-top:10px;gap:5px}.nav{order:3;flex:1 0 100%}.nav button{flex:1;padding-inline:6px}.top .quiet{margin-left:auto}.shell{padding:22px 13px}.intro{margin-bottom:17px}.intro aside{display:none}.field{min-height:clamp(183px,34dvh,254px)}.sidebar{grid-template-columns:1fr}.practice{padding:11px}.tools{gap:6px}.tool{padding:8px}.tool strong{font-size:.78rem}.options{gap:4px 10px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Pixel artwork lives in the dashboard and never competes with the focus target. */
+:root{--line:#3a3a57}.tag{letter-spacing:.1em}.intro h1{text-shadow:3px 3px 0 #3a2e60}.top .brand{gap:7px}.top .brand img{width:35px;height:35px}
+.action{border-width:2px;box-shadow:inset 0 -3px #131526,3px 3px 0 var(--shadow)}.action.primary{border-color:#c6ffdf;box-shadow:inset 0 -4px #59b587,3px 3px 0 var(--shadow)}.action:active{box-shadow:none}.tool,.level{box-shadow:inset 0 -2px #0c0e18,2px 2px #0d0e17}.tool[aria-pressed="true"],.level[aria-pressed="true"]{box-shadow:inset 3px 0 0 #8bebbc,inset 0 -2px #111e24,2px 2px #0d0e17}
+.player{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;gap:10px;padding:8px 0 11px;margin-bottom:11px;border-bottom:1px solid var(--line)}.sprite{width:48px;height:48px;background:url('./sprites.png') 0 0 / 192px 96px;image-rendering:pixelated;animation:crystal 1.25s steps(4) infinite}.player strong{font:800 .87rem var(--mono);color:var(--mint)}.player small{font:.69rem var(--mono);color:var(--purple);text-align:right}.player strong{white-space:nowrap}.player .row{flex-wrap:wrap;gap:4px 8px}.xp-track{height:8px;margin-top:6px;border:1px solid #4e466a;background:#111320}.xp-track i{display:block;height:100%;background:repeating-linear-gradient(90deg,#bfa8ff 0 7px,#9475e6 7px 9px);transition:width .35s steps(10)}.badge-list{display:grid;gap:7px}.badge{display:flex;gap:9px;align-items:center}.badge .sprite{flex:none;animation:none;background-position:0 -48px}.badge:nth-child(2) .sprite{background-position:-48px -48px}.badge:nth-child(3) .sprite{background-position:-96px -48px}.badge.locked .sprite{filter:grayscale(1);opacity:.55}.badge strong{font:.85rem var(--mono)}.badge p{margin:0}.badge .tag{margin-left:auto}
+@media(min-width:761px){.grid{grid-template-areas:"session sidebar" "hub sidebar"}.practice{grid-area:session}.sidebar{grid-area:sidebar}.hub{grid-area:hub;margin-top:0}}
+@media(max-width:365px){.tools{grid-template-columns:1fr}.tool{min-height:53px}.badge{flex-wrap:wrap}.player small{text-align:left}}
+@keyframes crystal{to{background-position:-192px 0}}@media(prefers-reduced-motion:reduce){.sprite{animation:none}}
+
+
+@font-face{font-family:Arcade;src:url('./arcade.ttf') format('truetype');font-display:swap}
+:root{--gold:#ffe0a1;--line:#51465c;--panel:#1c1929;--deep:#120f1c;--pixel:Arcade,var(--mono)}
+body{background-color:#100e1b;background-image:radial-gradient(#554567 1px,transparent 1px);background-size:28px 28px}
+header{background:#141120;border-bottom:3px double #88704e}.brand{font:normal .9rem var(--pixel);color:var(--gold);letter-spacing:.055em}.brand img{width:41px;height:41px}.nav button,.action,.level,.quiet,.tiers button{font-family:var(--mono);font-weight:800}.nav button[aria-current="page"]{border-color:#a58955;color:var(--gold);background:#332936}.card,.world,dialog{border:2px solid #685871;box-shadow:inset 0 0 0 2px #282033,4px 4px 0 #080710}.card{background:linear-gradient(130deg,#211b30,#181520)}.action{border:2px solid #a493ae;box-shadow:inset -3px -3px #383044,inset 2px 2px #68617d,3px 3px #080710}.action.primary{color:#291e19;background:#ffdd94;border-color:#ffe8aa;box-shadow:inset -3px -3px #bb854a,inset 2px 2px #fff0c3,3px 3px #080710}
+h1,h2,.time,.quest h2{font-family:var(--pixel);font-weight:400;letter-spacing:-.045em}h1{font-size:clamp(1.4rem,3vw,2.7rem);line-height:1.45}h2{font-size:.86rem;line-height:1.65;color:var(--gold)}.time{font-size:clamp(1.1rem,3vw,1.9rem);line-height:1.5}.intro{align-items:center}.intro .eyebrow,.tag{color:#e6c481}.intro{border-bottom:3px double #766347;padding-bottom:12px}.relic{width:62px;height:62px;display:inline-block;flex:none;background:url('./relics.webp') 0 0/200% 200%;image-rendering:pixelated;animation:levitate 3.2s steps(4) infinite}.relic.temple{background-position:100% 0}.relic.sphere{background-position:0 100%}.relic.scroll{background-position:100% 100%}.world{display:grid;grid-template-columns:1.45fr 1fr;background:#191421}.vista{min-width:0;position:relative;isolation:isolate;overflow:hidden;min-height:270px}.vista img{position:absolute;width:100%;height:100%;object-fit:cover;object-position:35% 46%;image-rendering:pixelated}.worldname{position:absolute;bottom:18px;left:18px;padding:10px 14px;background:#15101fea;border-left:4px solid var(--gold)}.worldname h1{color:#fff0c8;text-shadow:3px 3px #744b76}.worldname .tag{font-size:.63rem}.quest{padding:20px 24px;display:grid;gap:9px;align-content:center;border-left:3px double #89734e}.quest h2{font-size:clamp(1rem,2vw,1.5rem)}.quest .relic{width:46px;height:46px}.quest .quiet{padding:6px;min-height:38px}.quest #checkpoint{font:.78rem/1.6 var(--mono);color:var(--purple)}.journey-band{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin:17px 0;align-items:center}.journey-band .player{margin:0;padding:0;border:0}.map-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:16px;align-items:start}.tiers{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}.tiers button{border:1px solid var(--line);background:var(--deep);padding:8px;min-height:42px;color:var(--muted)}.tiers button[aria-pressed=true]{background:#322a3b;color:var(--gold);box-shadow:inset 0 -3px #d1a669}.atlas-row,.path-row{padding:10px 0;border-top:1px dashed #55495f;display:flex;align-items:center;gap:10px}.atlas-row strong,.path-row strong{font:.9rem var(--mono)}.atlas-row .state{margin-left:auto;color:#b2a7bf;font:.74rem var(--mono);text-align:right}.atlas-row button{min-height:44px}.stone{display:grid;place-items:center;width:30px;height:30px;background:#2a2437;border:2px solid #594668;color:var(--purple);flex:none}.path-row{display:block}.path-row p,.map-grid .empty{font-size:.83rem}.journey-band .metrics{border-left:2px dotted #5a4c65}.stars{position:absolute;left:25%;top:28%;color:#ffffcb;text-shadow:91px 42px #bafeef,-52px 31px #ffe4ac,125px -20px #e9bbff;animation:glimmer 3s steps(4) infinite;pointer-events:none}.target::after{border-radius:0;clip-path:polygon(25% 0,75% 0,75% 15%,100% 15%,100% 85%,75% 85%,75% 100%,25% 100%,25% 85%,0 85%,0 15%,25% 15%)}.field canvas{image-rendering:pixelated;width:128px;height:128px;position:absolute}.target.shaped::after,.target.shaped i{display:none}.field{border:3px double #776087}.entry{border-left:3px solid #80608b}.entry p{line-height:1.65}dialog::backdrop{background:#0a0711de}dialog[open]{animation:reveal .18s steps(4)}.screen{animation:reveal .24s steps(5)}.nav button:hover,.level:hover,.tiers button:hover{box-shadow:inset 0 -2px #b49464}.action:hover{transform:translateY(-1px)}.action:active{transform:translate(2px,2px)}textarea,select{border:2px solid #72617d;font-family:var(--mono);box-shadow:inset 2px 2px #070610}.notice{border:2px solid var(--gold);background:#282133;color:#ffedcb}.reward{font:bold .9rem var(--mono);color:var(--mint);animation:reveal .45s steps(5)}.active .field{border:0}.active .relic{display:none}
+@keyframes glimmer{0%,100%{opacity:.35}50%{opacity:.95;transform:translateY(-3px)}}@keyframes levitate{50%{transform:translateY(-3px)}}@keyframes reveal{from{opacity:.4;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){.world,.map-grid,.journey-band{grid-template-columns:1fr}.vista{width:100%;height:clamp(155px,45vw,260px);min-height:0}.quest{border-left:0;border-top:3px double #89734e;padding:12px 15px;gap:5px}.quest .relic{width:36px;height:36px}.journey-band{gap:11px}.journey-band .metrics{border-left:0;border-top:1px dashed var(--line);padding-top:8px}.worldname{bottom:8px;left:8px}.shell{padding-top:15px}.intro .relic{width:46px;height:46px}.intro h1{font-size:clamp(1rem,4.6vw,1.8rem)}.tiers button{flex:1;font-size:.75rem;padding:5px}.map-grid .pad{padding:12px}.nav{gap:0}.nav button{font-size:.8rem}.active .time{font-size:1rem}}
+@media(prefers-reduced-motion:reduce){*,*::after,*::before{animation:none!important;transition:none!important}}
+
+.atlas-row a{flex:1;font:700 .85rem/1.5 var(--mono);color:#e1d6ee;text-decoration:none}.atlas-row a:hover{text-decoration:underline;color:var(--gold)}.atlas-row .state{flex:none;max-width:76px}.player .relic{width:48px;height:48px}.nav button,.action,.tiers button{font:normal .62rem/1.6 var(--pixel)}.active .controls{grid-template-columns:minmax(0,1fr) auto}.worldname{box-shadow:3px 3px #0c0b14}.screen .pane-head{border-bottom:2px dotted #4c4152;padding-bottom:8px}@media(max-width:460px){.nav button,.tiers button{font-size:.52rem}.active .action{padding:9px 7px;font-size:.54rem}.quest{gap:8px}.quest .quiet{min-height:44px}.atlas-row .stone{width:23px;height:23px}.atlas-row{gap:6px}}
+.stars{inset:0;pointer-events:none;animation:none}.stars i{position:absolute;width:24px;height:24px;background:url('./starlight.png') left/96px 24px;image-rendering:pixelated;animation:twinkle 2.4s steps(4) infinite}.stars i:nth-child(1){left:35%;top:16%}.stars i:nth-child(2){left:66%;top:22%;animation-delay:-1.4s}.stars i:nth-child(3){left:80%;top:10%;animation-delay:-.6s}.reward-icon{width:52px;height:52px}.atlas-row .state{white-space:nowrap;max-width:none}.journey-band .player .relic{animation:levitate 3s steps(4) infinite}@keyframes twinkle{to{background-position:-96px 0}}
+@media(prefers-reduced-motion:reduce){.stars i,.journey-band .player .relic{animation:none!important}}
+</style>
+<link rel="stylesheet" href="./sanctuary.css">
+</head>
+<body>
+<header><div class="top">
+  <a class="brand" href="#atlas"><img src="./icon-192.png" alt="">NOESIS</a>
+  <nav class="nav" aria-label="Navigation"><button data-view="atlas">Atlas</button><button data-view="practice">Practice</button><button data-view="rites">Rites</button><button data-view="progress">Progress</button><button data-view="journal">Journal</button></nav>
+  <button class="quiet" id="install">↓ Install</button>
+</div></header>
+<main class="shell">
+<section class="screen" id="atlas" aria-labelledby="atlas-title">
+<div class="world">
+ <div class="vista"><img src="./overworld.webp" alt="The Temple of Zeus and a bronze armillary sphere overlook the Aegean under a constellation-filled sky."><div class="stars" aria-hidden="true"><i></i><i></i><i></i></div><div class="worldname"><span class="tag">Meditation atlas</span><h1 id="atlas-title">Noesis</h1></div></div>
+ <article class="quest"><div class="row"><span class="tag">Beginner · Available</span><span class="relic temple" aria-hidden="true"></span></div><h2><button id="hero-dot" class="heading-link">Dot Meditation</button></h2><p>Train your attention on one still point.</p><div id="checkpoint"></div><button id="launch" class="action primary">▶ Begin practice</button><button id="atlas-settings" class="quiet">Choose stage &amp; settings →</button></article>
+</div>
+<div class="journey-band card pad"><div class="player" id="atlas-player"></div><div class="metrics" id="atlas-metrics"></div></div>
+<div class="rites-shortcut"><button class="action" data-view="rites"><span class="item-art" style="--x:2;--y:0"></span> Today’s rites →</button><span class="tiny" id="atlas-season"></span></div><div class="map-grid"><section class="card pad"><div class="row pane-head"><h2>Practice atlas</h2><a class="tiny" href="https://templeofzeus.org/meditation" target="_blank" rel="noopener">Source library ↗</a></div><div class="tiers" id="tier-tabs" aria-label="Practice difficulty"></div><div id="library"></div></section>
+<section class="card pad"><h2 class="pane-head">Your path</h2><div id="journeys"></div><div class="week" id="atlas-week"></div><p class="tiny" id="atlas-goal"></p></section></div>
+</section>
+<section class="screen" id="practice" aria-labelledby="practice-title">
+  <div class="intro"><div><span class="eyebrow">Awareness Meditation</span><h1 id="practice-title">Dot Meditation</h1><p id="subtitle">Rest your gaze on the dot. When your attention wanders, return to it.</p></div><span class="relic temple" aria-hidden="true"></span><aside id="today-info" hidden></aside></div>
+  <div class="grid">
+    <article class="card practice" aria-label="Practice timer">
+      <div class="row practice-top"><span class="tag" id="level-tag"></span><strong id="stage-name"></strong></div>
+      <div class="prep"><h2>Before you start</h2><ol><li>Rest your phone on a steady surface and sit comfortably.</li><li id="instructions"></li><li>Tap Start. If you need a break, tap Pause. Your session saves at the end.</li></ol></div>
+      <label class="upload tiny" id="sigil" hidden>Choose a sigil image for this session.<br><input id="image" type="file" accept="image/*"></label>
+      <div class="field" id="field" aria-hidden="true"><div class="orbit"></div><div class="target" id="target"><i></i><canvas id="geometry" width="64" height="64" hidden></canvas><img id="sigil-image" alt="" hidden><span class="glyph" hidden></span></div></div>
+      <div class="controls"><div class="clock"><div class="time" id="time" role="timer">02:00</div><div class="track" aria-hidden="true"><i id="elapsed"></i></div></div><div class="actions"><button class="action" id="end" hidden>Save &amp; end</button><button class="action primary" id="start">▶ Start</button></div></div>
+      <details class="preferences"><summary>Display &amp; sound</summary><div class="options"><label id="paper-option"><input id="paper" type="checkbox"> Paper background</label><label><input id="sound" type="checkbox" checked> End chime</label><label><input type="checkbox" id="quiet-clock"> Hide clock during practice</label></div></details><a class="tiny reading-link" id="source" target="_blank" rel="noopener">Original practice instructions ↗</a>
+
+    </article>
+    <aside class="stack sidebar">
+      <section class="card pad"><div class="row pane-head"><h2>Stages</h2><span class="tag" id="master-count"></span></div><div class="levels" id="levels"></div><label class="master" id="master-label"><input type="checkbox" id="master"><small id="master-copy"></small></label></section>
+      <section class="card pad"><div class="row pane-head"><h2>Your stats</h2><button class="quiet tiny" data-view="progress">View progress →</button></div><div class="player" id="quick-player"></div><div class="metrics" id="quick-metrics"></div><div class="week" id="quick-week"></div><p class="tiny" id="motivation"></p></section>
+    </aside>
+
+  </div>
+</section>
+<section class="screen stack journal-wrap" id="rites" hidden aria-labelledby="rites-title"><div class="intro"><div><span class="eyebrow">Noesis sanctuary</span><h1 id="rites-title">Rites</h1><p id="rite-date"></p></div><i class="item-art big" style="--x:2;--y:0"></i></div>
+<section class="card pad"><div class="row"><h2 id="season-name"></h2><i class="item-art" style="--x:3;--y:3"></i></div><p id="season-next"></p><div id="season-pair" class="rite-list"></div><details><summary>Festival calendar &amp; sources</summary><div id="wheel"></div><p class="tiny">Seasonal assignments follow the Temple’s recurring festival dates. Special schedules are announced separately.</p><a href="https://templeofzeus.org/holidays" target="_blank" rel="noopener">Temple calendar ↗</a> · <a href="https://templeofzeus.org/doctrines-declarationonritualschedulesandcommunityleadership" target="_blank" rel="noopener">Seasonal pairs ↗</a> · <a href="https://ancient-forums.com/threads/new-order-of-ritual-schedules-10-new-rituals-of-muses.309662/" target="_blank" rel="noopener">Forum announcement ↗</a></details></section>
+<section class="card pad"><h2>Prayer &amp; ritual</h2><div class="rite-list" id="regular-rites"></div></section></section>
+<section class="screen journal-wrap stack" id="progress" hidden aria-labelledby="progress-title">
+  <div class="intro"><div><span class="eyebrow">Noesis</span><h1 id="progress-title">Progress</h1></div><span class="relic sphere" aria-hidden="true"></span></div>
+  <section class="card pad"><h2 class="pane-head">Your stats</h2><div class="player" id="full-player"></div><div class="metrics" id="full-metrics"></div><div class="week" id="full-week"></div>
+    <div class="row"><label for="goal">Practice days in the last 7 days</label><select id="goal" aria-label="Weekly goal"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div>
+    <p id="goal-status" class="tiny"></p>
+  </section>
+  <section class="card pad"><div class="row"><h2>Move your progress</h2><button class="action transfer-open">Transfer code</button></div></section><section class="card pad"><h2 class="pane-head">Badges</h2><div class="badge-list" id="badges"></div></section>
+  <section class="card pad"><h2 class="pane-head">Dot Meditation · by stage</h2><div id="level-stats" class="entries"></div></section>
+</section>
+<section class="screen journal-wrap stack" id="journal" hidden aria-labelledby="journal-title">
+  <div class="intro"><div><span class="eyebrow">Noesis</span><h1 id="journal-title">Journal</h1><p>Your sessions and notes are stored in this browser.</p></div><span class="relic scroll" aria-hidden="true"></span></div>
+  <section class="card pad"><div class="row pane-head"><h2>History</h2><button class="action" id="new-note">+ Note</button></div><div class="entries" id="entries"></div></section>
+  <section class="card pad"><button class="action primary transfer-open"><i class="item-art" style="--x:2;--y:3"></i> Transfer with a code</button><h2 class="pane-head file-label">File backups</h2><p class="tiny">Download a copy to take your progress to another phone or to the installed app.</p><div class="row backup"><button class="action" id="export">Export data</button><button class="action" id="import">Import data</button><input type="file" id="backup-file" accept=".json,application/json" hidden></div></section>
+</section>
+<footer>Screen adaptations of practices from <a href="https://templeofzeus.org/awareness-meditations" target="_blank" rel="noopener">Temple of Zeus</a>.</footer>
+</main>
+<dialog id="note-dialog" aria-labelledby="note-title">
+  <form id="note-form"><div class="row"><h2 id="note-title"></h2><span class="relic scroll reward-icon" aria-hidden="true"></span></div><p class="reward" id="note-context"></p>
+    <label for="focus">How steady was your attention?</label><select id="focus"><option value="">Unrated</option><option value="1">1 · Very scattered</option><option value="2">2 · Often distracted</option><option value="3">3 · Variable</option><option value="4">4 · Mostly steady</option><option value="5">5 · Steady and natural</option></select>
+    <label for="note">Reflection (optional)</label><textarea id="note" maxlength="3000" placeholder="What did you notice? What helped you return?"></textarea>
+    <div class="dialog-actions"><button class="action primary">Save reflection</button><button class="action" type="button" id="close-note">Close</button></div>
+  </form>
+</dialog>
+<dialog id="transfer" aria-labelledby="transfer-title"><h2 id="transfer-title">Move your progress</h2><p>On the old device, copy your code. On the new device, paste it here and tap Restore. It contains your journal, so keep it private.</p><button class="action primary" id="copy-code">Copy my code</button><label for="transfer-code">Transfer code</label><textarea id="transfer-code" spellcheck="false" autocapitalize="off" placeholder="NOESIS1-…"></textarea><p id="transfer-status" role="status"></p><div class="dialog-actions"><button class="action" id="restore-code">Restore code</button><button class="quiet" data-close="transfer">Close</button></div></dialog>
+<dialog id="reader" aria-labelledby="reader-title"><div class="row"><span class="tag" id="reader-kind"></span><button class="quiet" data-close="reader" aria-label="Close reader">✕ Close</button></div><h2 id="reader-title"></h2><div id="reader-body"></div><div class="dialog-actions" id="reader-actions"></div><a class="reading-link" id="reader-source" target="_blank" rel="noopener"></a></dialog>
+<dialog id="install-dialog" aria-labelledby="install-title"><h2 id="install-title">Install Noesis</h2><p><strong>iPhone:</strong> open in Safari, tap Share and choose Add to Home Screen.</p><p><strong>Android:</strong> open in Chrome, tap the menu and choose Install app or Add to Home screen.</p><form method="dialog"><button class="action">Close</button></form></dialog>
+<div id="notice" class="notice" role="status" hidden></div>
+<script>
+
+
+'use strict';
+
+const tools = {
+  dot: {
+    name: 'Dot Meditation', icon: '⊙', blurb: 'Visual attention · 5 stages',
+    intro: 'Rest your gaze on the dot. When your attention wanders, return to it.',
+    source: 'dot-meditation', levels: [
+      ['The Dot','•',2,'dot','Rest your gaze on the dot and blink naturally. When you notice a thought, return to the dot.'],
+      ['The Circle','○',4,'circle','Keep your attention on the dot at the center of the circle.'],
+      ['The Square','□',6,'square','Look at the dot inside the square. Gently return to it whenever your attention wanders.'],
+      ['The Triangle','△',6,'triangle','Keep your attention on the dot at the center of the triangle.'],
+      ['The Sigil','◇',10,'image','Start at the visual center of your chosen sigil, then widen your attention to its whole pattern.']
+    ]
+  },
+  anchor: {
+    name: 'Anchor Meditation', icon: '≈', blurb: 'Breath and body · 3 stages',
+    intro: 'Bring your attention to the physical sensations of your body.',
+    source: 'anchor-meditation-1', levels: [
+      ['The breath','≈',5,'breath','Close your eyes and notice the air and the movement of your chest. Return to the breath when distracted.'],
+      ['Breath and body','≈',5,'breath','Notice your breath, the weight of your body and the surface supporting you.'],
+      ['Breath, body and pulse','≈',5,'breath','Hold your breath rhythm and body weight in awareness, then notice your pulse.']
+    ]
+  },
+  observe: {
+    name: 'Self-Observation', icon: '◉', blurb: 'Thoughts and emotions · 3 stages',
+    intro: 'Notice what arises and let it pass.',
+    source: 'self-observation-meditation', levels: [
+      ['Thoughts','◉',5,'observe','Close your eyes and watch thoughts come and go without judging or following them.'],
+      ['Emotions','◉',5,'observe','Notice each emotion as it appears and let it pass.'],
+      ['Desires','◉',5,'observe','Observe sensations and impulses in your lower abdomen without acting on them.']
+    ]
+  }
+};
+const $ = id => document.getElementById(id);
+const key = 'awareness-hub-v1';
+const defaults = {entries:[],mastered:[],goal:3,paper:false,sound:true};
+function normalize(data) {
+  if (!data || !Array.isArray(data.entries) || !Array.isArray(data.mastered)) throw Error('Unknown format');
+  const entries = new Map();
+  for (const item of data.entries) {
+    if (!item || typeof item.id !== 'string' || !Number.isFinite(item.date) ||
+        !Number.isFinite(new Date(item.date).valueOf()) || !Number.isInteger(item.seconds) ||
+        item.seconds < 0 || item.seconds > 600 || typeof item.note !== 'string' ||
+        !Number.isInteger(item.focus) || item.focus < 0 || item.focus > 5 ||
+        (item.tool !== null && (!Object.hasOwn(tools,item.tool) || !Number.isInteger(item.level) || !tools[item.tool].levels[item.level]))) {
+      throw Error('Invalid entry');
+    }
+    entries.set(item.id,{id:item.id,date:item.date,seconds:item.seconds,tool:item.tool,level:item.level,
+      updated:Number.isFinite(item.updated)?item.updated:item.date, rite:typeof item.rite==='string'?item.rite.slice(0,100):undefined, note:item.note.slice(0,3000),focus:item.focus,complete:item.complete === true});
+  }
+  const readings=Object.fromEntries(Object.entries(data.readings||{}).filter(([name,value])=>name.length<=100 && typeof value==='string'));
+  return {readings,apolloMark:Number.isInteger(data.apolloMark) && data.apolloMark>=0 && data.apolloMark<=210?data.apolloMark:0, apolloStep:Number.isInteger(data.apolloStep) && data.apolloStep>=0 && data.apolloStep<=10?data.apolloStep:0, entries:[...entries.values()],mastered:[...new Set(data.mastered.filter(i => Number.isInteger(i) && i >= 0 && i < 5))],
+    goal:Number.isInteger(data.goal) && data.goal >= 1 && data.goal <= 7 ? data.goal : 3,
+    checkpoint:Number.isInteger(data.checkpoint) && data.checkpoint>=0 && data.checkpoint<5 ? data.checkpoint : null,
+    quietClock:data.quietClock===true, paper:data.paper === true,sound:data.sound !== false};
+}
+let data = structuredClone(defaults);
+let noticeTimeout;
+function toast(message) {
+  $('notice').textContent = message;
+  $('notice').hidden = false;
+  clearTimeout(noticeTimeout);
+  noticeTimeout = setTimeout(() => { $('notice').hidden = true; },5000);
+}
+try {
+  const raw = localStorage.getItem(key);
+  if (raw) data = normalize(JSON.parse(raw));
+} catch { toast('Saved data could not be read in this browser.'); }
+function save(update) {
+  let latest = data;
+  try {
+    const raw = localStorage.getItem(key);
+    if (raw) latest = normalize(JSON.parse(raw));
+  } catch {}
+  data = update(latest);
+  let stored=true;
+  try { localStorage.setItem(key,JSON.stringify(data)); }
+  catch { stored=false; toast('Local storage is unavailable. Export a copy from your journal.'); }
+  renderProgress();
+  return stored;
+}
+let current = 'dot';
+const selected = {dot:0,anchor:0,observe:0};
+let view = 'practice';
+let imageUrl = '';
+let audioContext;
+let wake;
+let run = null;
+let interval;
+let editing;
+let installPrompt;
+
+const stage = () => tools[current].levels[selected[current]];
+const total = () => stage()[2] * 60 * 1000;
+const two = value => String(value).padStart(2,'0');
+const dateLabel = new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+const weekday = new Intl.DateTimeFormat('en-GB',{weekday:'short'});
+function dayKey(d) { return [d.getFullYear(),d.getMonth()+1,d.getDate()].join('-'); }
+function ago(days) { const date = new Date(); date.setDate(date.getDate()-days); return date; }
+function formatTime(seconds) { return two(Math.floor(seconds / 60)) + ':' + two(seconds % 60); }
+function duration(seconds) {
+  const mins = Math.floor(seconds / 60);
+  const rest = seconds % 60;
+  return mins ? mins + ' min' + (rest ? ' ' + rest + ' s' : '') : rest + ' s';
+}
+function el(tag,text,cls) {
+  const node = document.createElement(tag);
+  if (text !== undefined) node.textContent = text;
+  if (cls) node.className = cls;
+  return node;
+}
+function metricBox(parent,list) {
+  parent.replaceChildren(...list.map(([value,label]) => {
+    const node = el('div');
+    node.append(el('strong',value),el('span',label));
+    return node;
+  }));
+}
+function renderRewards(sessions,seconds,streak) {
+  const complete = sessions.filter(item => item.complete).length;
+  const xp = Math.floor(seconds / 60) * 5 + complete * 10;
+  const rank = 1 + Math.floor(xp / 100);
+  for (const id of ['quick-player','full-player','atlas-player']) {
+    const sprite = el('div',undefined,'relic');
+    sprite.setAttribute('aria-hidden','true');
+    const body = el('div');
+    const heading = el('div',undefined,'row');
+    heading.append(el('strong','Rank ' + rank),el('small',xp + ' XP · ' + (100-xp%100) + ' to next rank'));
+    const bar = el('div',undefined,'xp-track');
+    const fill = el('i');
+    fill.style.width = xp % 100 + '%';
+    bar.append(fill);
+    body.append(heading,bar);
+    $(id).replaceChildren(sprite,body);
+  }
+  $('badges').replaceChildren(...[
+    ['First steps','Complete a session.',complete > 0],
+    ['Three-day streak','Practice on three consecutive days.',streak >= 3 || bestStreak(sessions) >= 3],
+    ['Shape master','Master all four geometric stages.',[0,1,2,3].every(i => data.mastered.includes(i))]
+  ].map(([name,description,done]) => {
+    const badge = el('div',undefined,'entry badge' + (done ? '' : ' locked'));
+    const sprite = el('div',undefined,'sprite');
+    sprite.setAttribute('aria-hidden','true');
+    const copy = el('div');
+    copy.append(el('strong',name),el('p',description,'tiny'));
+    badge.append(sprite,copy,el('span',done ? '✓' : '○','tag'));
+    badge.lastElementChild.setAttribute('aria-label',done ? 'Earned' : 'Unearned');
+    return badge;
+  }));
+}
+function bestStreak(sessions) {
+  const days = new Set(sessions.map(item => {
+    const date = new Date(item.date);
+    return Date.UTC(date.getFullYear(),date.getMonth(),date.getDate()) / 86400000;
+  }));
+  let consecutive = 0, best = 0, previous = -Infinity;
+  for (const day of [...days].sort((a,b) => a-b)) {
+    consecutive = day === previous + 1 ? consecutive + 1 : 1;
+    best = Math.max(best,consecutive);
+    previous = day;
+  }
+  return best;
+}
+function renderProgress() {
+  const sessions = data.entries.filter(item => item.seconds > 0);
+  const days = new Set(sessions.map(item => dayKey(new Date(item.date))));
+  const dates = Array.from({length:7},(_,i) => ago(6-i));
+  const hits = dates.filter(date => days.has(dayKey(date))).length;
+  const today = days.has(dayKey(dates[6]));
+  let index = today ? 0 : 1;
+  let streak = 0;
+  while (days.has(dayKey(ago(index++)))) streak++;
+  const seconds = sessions.reduce((acc,item) => acc + item.seconds,0);
+  renderRewards(sessions,seconds,streak);
+  const stats = [[sessions.length,'sessions'],[duration(seconds),'practice'],[streak,'day streak']];
+  metricBox($('atlas-metrics'),stats);
+  renderJourney();
+  for (const prefix of ['quick','full']) {
+    metricBox($(prefix+'-metrics'),stats);
+    $(prefix+'-week').replaceChildren(...dates.map((date,i) => {
+      const done = days.has(dayKey(date));
+      const node = el('div',undefined,(done ? 'done ' : '')+(i===6 ? 'today' : ''));
+      node.append(el('i',done ? '✓' : '·'),el('span',weekday.format(date).replace('.','')));
+      node.title = date.toLocaleDateString('en-GB') + (done ? ' · practice logged' : '');
+      return node;
+    }));
+  }
+  $('atlas-week').replaceChildren(...Array.from($('full-week').children,day=>day.cloneNode(true)));
+  $('atlas-goal').textContent = hits+' / '+data.goal+' practice days this week'+(hits>=data.goal?' · Goal reached!':'');
+  $('goal').value = data.goal;
+  $('goal-status').textContent = hits + ' / ' + data.goal + ' days. ' + (hits >= data.goal ? 'Goal reached!' : 'Each session counts.');
+  $('today-info').textContent = today ? '◆ Practiced today' : '◇ Ready to practice';
+  $('motivation').textContent = hits >= data.goal ? 'You reached your goal for the last seven days.' :
+    today ? 'You practiced today. Weekly goal: ' + hits + ' / ' + data.goal + ' days.' :
+    'One short session is a good place to start.';
+  $('master-count').textContent = current === 'dot' ? data.mastered.length + ' / 5 mastered' : '';
+  $('master').checked = data.mastered.includes(selected.dot);
+  document.querySelectorAll('#levels button').forEach((button,i) => {
+    button.querySelector('small').textContent = (current === 'dot' && data.mastered.includes(i) ? '✓ ' : '') + tools[current].levels[i][2] + ' min';
+  });
+  $('level-stats').replaceChildren(...tools.dot.levels.map(([name],i) => {
+    const group = sessions.filter(item => item.tool === 'dot' && item.level === i);
+    const node = el('div',undefined,'entry row');
+    const subtitle = group.filter(item => item.complete).length + ' complete / ' + group.length + ' total';
+    node.append(el('strong',name),el('span',subtitle + (data.mastered.includes(i) ? ' · ✓ mastered' : ''),'tiny muted'));
+    return node;
+  }));
+  renderEntries();
+}
+
+const atlasTiers = {
+  Beginner: ['Dot Meditation','Anchor Meditation','Self-Observation','Recollection Meditation','Awareness of Sound','Awareness of Smell','Awareness of Touch','Awareness of Taste','Sight & Visualization'],
+  Intermediate: ['The Pythagorean Day','God Sigil Meditation','Meditation on Ethics','Ethics in Context','Higher Awareness of Self','Chakra Focus','Aura Awareness','Hip, Shoulder & Temple Chakras','Opening the Chakras'],
+  Advanced: ['Aligning the Chakras','Empowering the Aligned Chakras','Activating the Legs & Feet','The Lower Triangle','The Middle Triangle','The Upper Triangle','The Djed Pillar of Osiris']
+};
+const readingPaths = {
+  "Beginner": [
+    "dot-meditation",
+    "anchor-meditation-1",
+    "self-observation-meditation",
+    "recollection-meditation",
+    "awareness-of-sound-meditation",
+    "awareness-of-smell-meditation",
+    "awareness-of-touch-meditation",
+    "awareness-of-taste-meditation",
+    "sight-and-visualization-meditation"
+  ],
+  "Intermediate": [
+    "pythagorean-day-meditation",
+    "god-sigil-meditation",
+    "ethics-meditation",
+    "ethics-context-meditation",
+    "achieving-higher-self-awareness",
+    "chakra-focus-meditation",
+    "aura-awareness",
+    "side-chakras-awareness",
+    "opening-chakras"
+  ],
+  "Advanced": [
+    "chakra-alignment3",
+    "chakra-alignment4",
+    "activating-legs-feet-chakras",
+    "awareness-lower-triangle",
+    "awareness-middle-triangle",
+    "awareness-upper-triangle",
+    "djed-pillar"
+  ]
+};
+let tier = 'Beginner';
+function lastStage() {
+  if (data.checkpoint !== null && data.checkpoint !== undefined) return data.checkpoint;
+  return data.entries.filter(e => e.tool === 'dot').sort((a,b)=>b.date-a.date)[0]?.level ?? 0;
+}
+function enterDot(start) {
+  selected.dot = lastStage();
+  renderPractice();
+  location.hash = 'practice';
+  go('practice');
+  window.scrollTo(0,0);
+  if (start) $('start').click();
+}
+$('launch').onclick = () => enterDot(data.entries.some(e=>e.tool==='dot'));
+$('hero-dot').onclick = () => enterDot(false);
+$('atlas-settings').onclick = () => { enterDot(false); $('levels').scrollIntoView({block:'center'}); $('levels').querySelector('[aria-pressed=true]').focus({preventScroll:true}); };
+function renderLibrary() {
+  $('tier-tabs').replaceChildren(...Object.keys(atlasTiers).map(name => {
+    const button = el('button',name);
+    button.setAttribute('aria-pressed',String(name === tier));
+    button.onclick = () => { tier = name; renderLibrary(); $('tier-tabs').querySelector('[aria-pressed=true]').focus(); };
+    return button;
+  }));
+  $('library').replaceChildren(...atlasTiers[tier].map((name,i) => {
+    const row = el('div',undefined,'atlas-row');
+    const available = name === 'Dot Meditation';
+    if (available) {
+      const open = el('button',undefined,'play-row');
+      open.append(el('span','⊙','stone'),el('strong',name),el('small','Practice →'));
+      open.onclick=()=>enterDot(false);
+      row.append(open);
+      return row;
+    }
+    const link = el('a','Read source ↗');
+    link.href = 'https://templeofzeus.org/'+readingPaths[tier][i];
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.setAttribute('aria-label','Read '+name+' at Temple of Zeus');
+    row.append(el('strong',name),link);
+    const status = el('span','Coming soon','state');
+
+    row.append(status);
+    return row;
+  }));
+}
+function renderJourney() {
+  const index = lastStage(), level = tools.dot.levels[index];
+  const started = data.checkpoint != null || data.entries.some(entry=>entry.tool==='dot') || data.mastered.length > 0;
+  $('checkpoint').textContent = 'Stage ' + (index+1) + '/5 · ' + level[0] + ' · ' + level[2] + ' min';
+  $('launch').textContent = data.entries.some(e=>e.tool==='dot') ? '▶ Start '+level[2]+' min session' : 'Open practice →';
+  $('journeys').replaceChildren();
+  for (const [id,tool] of Object.entries(tools)) {
+    const items = data.entries.filter(entry=>entry.tool===id).sort((a,b)=>b.date-a.date);
+    if (!items.length && !(id==='dot' && started)) continue;
+    const node = el('div',undefined,'path-row');
+    const stageIndex = id==='dot' ? index : items[0].level;
+    node.append(el('strong',tool.name),el('p','Stage ' + (stageIndex+1) + ' · ' + tool.levels[stageIndex][0]),
+      el('p',items.length+' sessions · '+duration(items.reduce((sum,item)=>sum+item.seconds,0))+' practiced'));
+    if(id==='dot') node.append(el('p',data.mastered.length+' of 5 stages mastered'));
+    $('journeys').append(node);
+  }
+  if (!$('journeys').children.length) $('journeys').append(el('p','Begin Dot Meditation to mark your first stage here.','empty'));
+}
+function pixelTarget(shape) {
+  const canvas = $('geometry');
+  const visible = ['circle','square','triangle'].includes(shape);
+  canvas.hidden = !visible;
+  $('target').classList.toggle('shaped',visible);
+  if (!visible) return;
+  const ctx = canvas.getContext('2d'), ink = data.paper ? '#171722' : '#a7ffcf';
+  ctx.clearRect(0,0,64,64); ctx.fillStyle=ink;
+  for(let y=0;y<64;y++) for(let x=0;x<64;x++) {
+    const dx=x-31.5,dy=y-31.5;
+    const distance=Math.hypot(dx,dy);
+    const halfWidth=(y-1)*.54;
+    const edge=shape==='circle' ? distance>=26 && distance<27.2 :
+      shape==='square' ? Math.max(Math.abs(dx),Math.abs(dy))===26.5 :
+      y>=1 && y<=47 && (Math.abs(Math.abs(dx)-halfWidth)<.8 || y===47 && Math.abs(dx)<=halfWidth);
+    if(edge) ctx.fillRect(x,y,1,1);
+  }
+  ctx.fillRect(30,30,4,4);
+}
+function renderPractice() {
+  const tool = tools[current], [name,icon,minutes,shape,description] = stage();
+  $('practice-title').textContent = tool.name;
+  document.title = 'Noesis · ' + tool.name;
+  $('subtitle').textContent = 'Prepare your screen, then start the timer when you are ready.';
+  $('level-tag').textContent = 'Stage ' + (selected[current]+1) + ' / ' + tool.levels.length;
+  $('stage-name').textContent = name + ' · ' + minutes + ' min';
+  $('instructions').textContent = description;
+  $('source').href = 'https://templeofzeus.org/' + tool.source;
+  $('sigil').hidden = shape !== 'image';
+  $('sigil-image').hidden = shape !== 'image' || !imageUrl;
+  $('target').dataset.shape = shape;
+  pixelTarget(shape);
+  const glyph = $('target').querySelector('.glyph');
+  glyph.hidden = !['breath','observe'].includes(shape) && (shape !== 'image' || Boolean(imageUrl));
+  glyph.textContent = icon;
+  $('paper-option').hidden = current !== 'dot';
+  $('paper').checked = data.paper;
+  $('field').classList.toggle('paper',current === 'dot' && data.paper);
+  $('sound').checked = data.sound;
+  $('quiet-clock').checked = !!data.quietClock;
+  $('start').textContent = '▶ Start '+minutes+' min';
+  $('master-label').hidden = current !== 'dot';
+  $('master-copy').textContent = 'Mark as mastered when your attention stays steady with ease.';
+  $('levels').replaceChildren(...tool.levels.map(([label,symbol],i) => {
+    const button = el('button',undefined,'level');
+    button.setAttribute('aria-pressed',String(i === selected[current]));
+    button.append(el('span',symbol,'sym'),el('span',label),el('small'));
+    button.onclick = () => {
+      selected[current] = i;
+      renderPractice();
+      $('levels').children[i].focus();
+    };
+    return button;
+  }));
+  
+  renderProgress();
+  renderClock(total());
+}
+function renderClock(ms) {
+  $('time').textContent = formatTime(Math.ceil(ms/1000));
+  $('elapsed').style.width = (1 - ms / total()) * 100 + '%';
+}
+function go(next) {
+  if (run) return;
+  next = ({practica:'practice',progres:'progress',jurnal:'journal'})[next] || next;
+  view = ['atlas','practice','rites','progress','journal'].includes(next) ? next : 'atlas';
+  for (const id of ['atlas','practice','rites','progress','journal']) $(id).hidden = id !== view;
+  document.querySelectorAll('.nav button').forEach(button => {
+    if (button.dataset.view === view) button.setAttribute('aria-current','page');
+    else button.removeAttribute('aria-current');
+  });
+  document.title = 'Noesis · ' + ({atlas:'Meditation Atlas',practice:'Dot Meditation',rites:'Rites',progress:'Progress',journal:'Journal'})[view];
+  renderProgress();
+}
+document.querySelectorAll('[data-view]').forEach(button => {
+  button.onclick = () => {
+    location.hash = button.dataset.view;
+    go(button.dataset.view);
+    window.scrollTo(0,0);
+  };
+});
+addEventListener('hashchange',() => go(location.hash.slice(1)));
+addEventListener('storage',event => {
+  if (event.key !== key) return;
+  try { data = event.newValue ? normalize(JSON.parse(event.newValue)) : structuredClone(defaults); }
+  catch { return; }
+  if (!run) renderPractice();
+});
+$('paper').onchange = () => {
+  save(previous => ({...previous,paper:$('paper').checked}));
+  $('field').classList.toggle('paper',data.paper);
+  pixelTarget(stage()[3]);
+};
+$('sound').onchange = () => save(previous => ({...previous,sound:$('sound').checked}));
+$('goal').onchange = () => save(previous => ({...previous,goal:Number($('goal').value)}));
+$('master').onchange = () => {
+  const checked = $('master').checked;
+  const index = selected.dot;
+  save(previous => ({...previous,mastered:checked ? [...new Set([...previous.mastered,index])] : previous.mastered.filter(i => i !== index)}));
+  toast(checked ? 'Stage marked as mastered.' : 'Mastery mark removed.');
+};
+$('image').onchange = () => {
+  const file = $('image').files[0];
+  if (!file) return;
+  const candidate = URL.createObjectURL(file);
+  const test = new Image();
+  test.onload = () => {
+    if (imageUrl) URL.revokeObjectURL(imageUrl);
+    imageUrl = candidate;
+    $('sigil-image').src = imageUrl;
+    if (!run) renderPractice();
+  };
+  test.onerror = () => { URL.revokeObjectURL(candidate); toast('Image could not be opened. Try a PNG or JPG.'); };
+  test.src = candidate;
+};
+
+async function lockScreen() {
+  if (!run?.until || document.hidden || wake || !navigator.wakeLock) return;
+  try {
+    const lock = await navigator.wakeLock.request('screen');
+    if (!run?.until || wake) { await lock.release(); return; }
+    wake = lock;
+    lock.addEventListener('release',() => { if (wake === lock) wake = null; });
+  } catch {}
+}
+function unlockScreen() {
+  wake?.release().catch(() => {});
+  wake = null;
+}
+function prepareSound() {
+  if (!data.sound) return;
+  try {
+    const Audio = window.AudioContext || window.webkitAudioContext;
+    audioContext ||= new Audio();
+    audioContext.resume().catch(() => {});
+  } catch {}
+}
+function bell() {
+  if (!data.sound || audioContext?.state !== 'running') return;
+  for (const [frequency,offset] of [[523,0],[659,.16],[784,.33]]) {
+    const wave = audioContext.createOscillator();
+    const volume = audioContext.createGain();
+    const time = audioContext.currentTime + offset;
+    wave.type = 'triangle';
+    wave.frequency.value = frequency;
+    volume.gain.setValueAtTime(.08,time);
+    volume.gain.exponentialRampToValueAtTime(.001,time+.45);
+    wave.connect(volume).connect(audioContext.destination);
+    wave.start(time);
+    wave.stop(time+.46);
+  }
+}
+function remaining() { return run.until ? Math.max(0,run.until-Date.now()) : run.left; }
+function tick() {
+  if (!run) return;
+  const left = remaining();
+  renderClock(left);
+  if (!left) finish(true);
+}
+document.addEventListener('visibilitychange',() => { tick(); lockScreen(); });
+$('start').onclick = () => {
+  if (!run) {
+    if (stage()[3] === 'image' && !imageUrl) {
+      toast('Choose an image for the Sigil stage.');
+      $('image').focus();
+      return;
+    }
+    save(previous => ({...previous,checkpoint:selected.dot}));
+    prepareSound();
+    run = {id:crypto.randomUUID?.() || Date.now()+'-'+Math.random().toString(36).slice(2),left:total(),until:Date.now()+total()};
+    document.body.classList.toggle('quiet-clock',!!data.quietClock);
+    document.body.classList.add('active');
+    $('end').hidden = true;
+    $('start').textContent = 'Ⅱ Pause';
+    window.scrollTo(0,0);
+    interval = setInterval(tick,150);
+    lockScreen();
+  } else if (run.until) {
+    run.left = remaining();
+    run.until = 0;
+    if (!run.left) { finish(true); return; }
+    $('end').hidden = false;
+    document.body.classList.add('paused');
+    $('start').textContent = '▶ Resume';
+    unlockScreen();
+  } else {
+    prepareSound();
+    $('end').hidden = true;
+    document.body.classList.remove('paused');
+    run.until = Date.now() + run.left;
+    $('start').textContent = 'Ⅱ Pause';
+    lockScreen();
+  }
+  tick();
+};
+$('end').onclick = () => finish(!remaining());
+function finish(complete) {
+  const seconds = Math.floor((total() - remaining()) / 1000);
+  const id = run.id;
+  clearInterval(interval);
+  run = null;
+  unlockScreen();
+  document.body.classList.remove('active','quiet-clock','paused');
+  $('end').hidden = true;
+  $('start').textContent = '▶ Start';
+  if (complete) bell();
+  if (seconds > 0) {
+    const entry = {id,date:Date.now(),tool:current,level:selected[current],seconds,complete,note:'',focus:0};
+    const pastBonus = data.entries.filter(item=>item.complete).length*10;
+    const pastSeconds=data.entries.reduce((sum,item)=>sum+item.seconds,0);
+    const gained=(Math.floor((pastSeconds+seconds)/60)-Math.floor(pastSeconds/60))*5+(complete ? 10 : 0);
+    save(previous => ({...previous,entries:[...previous.entries,entry]}));
+    if (stage()[3] === 'image') {
+      URL.revokeObjectURL(imageUrl);
+      imageUrl = '';
+      $('sigil-image').removeAttribute('src');
+      $('image').value = '';
+    }
+    renderPractice();
+    openNote(entry,complete ? 'Session complete!' : 'Session saved');
+    $('note-context').textContent += ' · +' + gained + ' XP';
+    const pastXP = Math.floor(pastSeconds/60)*5 + pastBonus;
+    if(Math.floor((pastXP+gained)/100)>Math.floor(pastXP/100)) $('note-title').textContent='Rank up! Rank '+(1+Math.floor((pastXP+gained)/100));
+  } else {
+    renderClock(total());
+    $('start').focus();
+  }
+  go(location.hash.slice(1));
+}
+function openNote(item,title) {
+  editing = item;
+  const art = $('note-dialog').querySelector('.reward-icon');
+  art.classList.toggle('sphere',title==='Session complete!');
+  art.classList.toggle('scroll',title!=='Session complete!');
+  $('note-title').textContent = title;
+  $('note-context').textContent = item?.tool ? entryTitle(item) + ' · ' + duration(item.seconds) : 'Write down what you noticed during your practice.';
+  $('note').value = item?.note || '';
+  $('focus').value = item?.focus || '';
+  const afterSession = ['Session complete!','Session saved'].includes(title);
+  $('note-dialog').dataset.session = afterSession ? 'yes' : 'no';
+  $('close-note').textContent = afterSession ? 'Done · back to Atlas' : 'Close';
+  $('note-dialog').showModal();
+}
+function entryTitle(item) {
+  if (item.rite) return item.rite;
+  if (item.tool === null) return 'Personal note';
+  return tools[item.tool].name + ' · ' + tools[item.tool].levels[item.level][0];
+}
+function renderEntries() {
+  const items = [...data.entries].sort((a,b) => b.date-a.date);
+  const nodes = items.map(item => {
+    const node = el('article',undefined,'entry');
+    const row = el('div',undefined,'row');
+    const button = el('button',item.note || item.focus ? 'Edit' : 'Write','quiet tiny');
+    button.onclick = () => openNote(item,'Edit entry');
+    row.append(el('strong',entryTitle(item)),button);
+    const context = [dateLabel.format(item.date)];
+    if (item.tool) context.push(duration(item.seconds),item.complete ? 'Complete' : 'Partial');
+    if (item.focus) context.push('Attention ' + item.focus + '/5');
+    node.append(row,el('p',context.join(' · '),'tiny'));
+    if (item.note) node.append(el('p',item.note));
+    return node;
+  });
+  $('entries').replaceChildren(...nodes);
+  if (!nodes.length) $('entries').append(el('p','Your sessions and notes will appear here.'));
+}
+$('new-note').onclick = () => openNote(null,'New note');
+$('close-note').onclick = () => $('note-dialog').close();
+$('note-form').onsubmit = event => {
+  event.preventDefault();
+  const note = $('note').value.trim(), focus = Number($('focus').value);
+  if (!editing && !note && !focus) { $('note-dialog').close(); return; }
+  const item = {...(editing || {id:crypto.randomUUID?.() || Date.now()+'-'+Math.random().toString(36).slice(2),date:Date.now(),tool:null,level:0,seconds:0,complete:false}),note,focus,updated:Date.now()};
+  save(previous => ({...previous,entries:[...previous.entries.filter(entry => entry.id !== item.id),item]}));
+  $('note-dialog').close();
+  toast('Journal updated.');
+};
+$('export').onclick = () => {
+  const url = URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
+  const link = el('a');
+  link.href = url;
+  link.download = 'noesis-' + dayKey(new Date()) + '.json';
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url),30000);
+};
+$('import').onclick = () => $('backup-file').click();
+addEventListener('beforeinstallprompt',event => { event.preventDefault(); installPrompt = event; });
+addEventListener('appinstalled',() => { installPrompt = null; $('install').hidden = true; });
+$('install').hidden = matchMedia('(display-mode: standalone)').matches || !!navigator.standalone;
+$('install').onclick = async () => {
+  if (installPrompt) {
+    const prompt = installPrompt;
+    installPrompt = null;
+    try { await prompt.prompt(); return; } catch {}
+  }
+  $('install-dialog').showModal();
+};
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  addEventListener('load',() => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+selected.dot=lastStage();
+renderLibrary();
+renderPractice();
+go(location.hash.slice(1));
+</script>
+<script src="./sanctuary.js"></script>
+<script src="./original-reader.js"></script>
+</body>
+</html>
+
